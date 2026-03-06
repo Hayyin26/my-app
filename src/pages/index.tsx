@@ -3,8 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
+// const [isLogin, setIsLogin] = useState(false);
+// const { push } = useRouter();
+// useEffect(() => {
+//     if (!isLogin) {
+//         push("/auth/login");
+//     }
+// },[]);
 
 export default function Home() {
   return (
