@@ -1,9 +1,13 @@
-const Navbar = () => {
+import syles from './navbar.module.css';
+
+const navbar = () => {
     return (
-      <div className = "navbar">
-        <div>Navbar Component</div>
+      <div className={syles.navbar}>
+        <div className="big">
+          Navbar
+        </div>
       </div>
     );
 };
 
-export default Navbar;
+export default navbar;
