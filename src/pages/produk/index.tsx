@@ -1,39 +1,28 @@
-import { useEffect, useState } from 'react';
-import TampilanProduk from '../views/produk';
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import TampilanProduk from "@/views/produk";
+import useSWR from "swr";
+import fetcher from "@/utils/swr/fetcher";
 
 const kategori = () => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  // const [isLogin, setIsLogin] = useState(false);
+  // const { push } = useRouter();
+  const [products, setProducts] = useState([]);
+  // console.log("products:", products);
+  // useEffect(() => {
+  //   if (!isLogin) {
+  //     push("/auth/login");
+  //   }
+  // },[]);
 
-    useEffect(() => {
-        fetch('/api/produk')
-            .then(res => res.json())
-            .then(data => {
-                console.log('Fetched data:', data);
-                setProducts(data.data || []);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error('Fetch error:', err);
-                setError(err.message);
-                setLoading(false);
-            });
-    }, []);
+  const { data , error, isLoading} = useSWR("/api/produk", fetcher);
+  
 
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <div>
-            <TampilanProduk products={products} />
-        </div>
-    );
-}
+  return (
+    <div>
+      <TampilanProduk products={isLoading ? [] : data?.data} />
+    </div>
+  );
+};
 
 export default kategori;
